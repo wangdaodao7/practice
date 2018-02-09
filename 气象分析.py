@@ -1,3 +1,7 @@
+#项目地址
+#http://blog.csdn.net/oxuzhenyi/article/details/68928892
+
+
 
 import numpy as np
 import pandas as pd
@@ -98,7 +102,6 @@ def work_two():
 ]
 
     fig, ax = plt.subplots()
-    x1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     ax.plot(dist, temp_max ,'ro')
     plt.show()
 
