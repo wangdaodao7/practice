@@ -28,8 +28,9 @@ scores = ((65, 80, 72), (70, 90, 85))
 mpl.rcParams['font.size'] = font_size
 mpl.rcParams['figure.figsize'] = fig_size
 
-
 index = np.arange(len(scores[0]))
 
-print(index)
+plt.bar(index, scores[0],  bar_width, color='r')
+plt.bar(index+bar_width, scores[1], bar_width,color='g')
+plt.show()
 
