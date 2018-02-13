@@ -15,7 +15,9 @@ import numpy as np
 from PIL import Image
 import pylab
 
-custom_font = mpl.font_manager.FontProperties(fname = '/Users/wangdaodao/Python/其他/itchat/111.ttc')
+
+
+custom_font = mpl.font_manager.FontProperties(fname = 'songti.ttf')
 
 font_size = 10
 fig_size = (8, 6)
@@ -30,7 +32,21 @@ mpl.rcParams['figure.figsize'] = fig_size
 
 index = np.arange(len(scores[0]))
 
-plt.bar(index, scores[0],  bar_width, color='r')
-plt.bar(index+bar_width, scores[1], bar_width,color='g')
+rects1 = plt.bar(index, scores[0],  bar_width, color='r')
+rects2 = plt.bar(index+bar_width, scores[1], bar_width,color='g')
+plt.ylim(ymax=100, ymin=0)
+
+plt.title('成绩对比图',  fontproperties=custom_font)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.03), fancybox=True, ncol=2, prop=custom_font)  
+def add_labels(rects):
+    for rect in rects:
+        height = rect.get_height()
+        plt.text(rect.get_x() + rect.get_width() / 2, height, height, ha='center', va='bottom') 
+        rect.set_edgecolor('white')
+        
+
+
+add_labels(rects1) 
+add_labels(rects2) 
 plt.show()
 
