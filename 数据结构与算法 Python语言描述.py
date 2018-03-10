@@ -88,15 +88,16 @@ print(Countable.get_count())
 
 class PersonValueError(TypeError):
     pass
-
+class PersonTypeError(TypeError):
+    pass
 
 class Person:
     #内部函数使用，只在类中生效
     _num = 0
 
     def __init__(self, name, sex, birthday, ident):
-        if not (isinstance(name, str) and sex in ('男', '女')):
-            raise PersonValueError(name, sex)
+        if not (isinstance(name, str) and sex in ('男', '女') and isinstance(ident, str)):
+            raise PersonValueError(name, sex, ident)
         try:
             birth = datetime.date(*birthday)
         except:
@@ -107,8 +108,44 @@ class Person:
         self._id = ident
         Person._num += 1
 
+    def id(self):
+        return self._id
+    def name(self):
+        return self._name
+    def sex(self):
+        return self._sex
+    def birthday(self):
+        return self._birthday
+    def age(self):
+        return (datetime.date.today().year - self._birthday.year)
+
+    def set_name(self, name):
+        if not isinstance(name, str):
+            raise PersonValueError('改名字', name)
+        self._name = name
+
+    def __lt__(self, another):
+        if not isinstance(another, Person):
+            raise PersonTypeError(another)
+        return self._id > another._id
+
+    @classmethod
+    def num(cls):
+        return Person._num
+
+    def __str__(self):
+        return ' '.join((self._id, self._name, self._sex, str(self._birthday)))
+
+    def details(self):
+        return ', '.join(('编号：'+self._id, '姓名：'+self._name,'性别：'+self._sex,'出生日期'+str(self._birthday)))
 
 
+p1 = Person('导导', '男', (1999, 2, 11), '9090200')
+p2 = Person('微微', '女', (1993, 12, 22), '9091200')
 
+print(p1, '\n', p1.details())
 
-p = Person('导导', '女', (1999, 12, 22), 9090200)
+p = [p1, p2]
+p.sort()
+for pp in p:
+    print(pp.details())
