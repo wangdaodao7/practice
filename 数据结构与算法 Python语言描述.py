@@ -148,4 +148,4 @@ print(p1, '\n', p1.details())
 p = [p1, p2]
 p.sort()
 for pp in p:
-    print(pp.details())
+    print(pp.details(), pp._num)
