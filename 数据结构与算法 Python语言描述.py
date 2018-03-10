@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 
 """
     作者:     王导导
@@ -79,3 +81,34 @@ class Countable:
 x = Countable()
 y = Countable()
 print(Countable.get_count())
+
+
+
+
+
+class PersonValueError(TypeError):
+    pass
+
+
+class Person:
+    #内部函数使用，只在类中生效
+    _num = 0
+
+    def __init__(self, name, sex, birthday, ident):
+        if not (isinstance(name, str) and sex in ('男', '女')):
+            raise PersonValueError(name, sex)
+        try:
+            birth = datetime.date(*birthday)
+        except:
+            raise PersonValueError('生日错误', birthday)
+        self._name = name
+        self._sex = sex
+        self._birthday = birth
+        self._id = ident
+        Person._num += 1
+
+
+
+
+
+p = Person('导导', '女', (1999, 12, 22), 9090200)
