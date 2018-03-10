@@ -58,9 +58,24 @@ class Rational:
         g = Rational._gcd(num, den)
 
         self._num = sign *(num//g)
-        self._den = den//g
+        self._den = den// num
 
 
 
-x = Rational('44', 0)
+x = Rational(9, 9)
 print(x._num, x._den)
+
+
+#静态方法
+class Countable:
+    counter = 0
+    def __init__(self):
+        Countable.counter += 1
+    @classmethod
+    #不参与实例化，表示类本身特性的一些方法，比如实例的计量
+    def get_count(cls):
+        return Countable.counter
+
+x = Countable()
+y = Countable()
+print(Countable.get_count())
