@@ -11,11 +11,7 @@ import datetime
 
 """
 
-
-
-
 #类静态的使用方法
-
 class Rational0:
     def __init__(self, num, den=1):
         self.num = num
@@ -52,13 +48,11 @@ class Rational:
             raise TypeError
         if den == 0:
             raise ZeroDivisionError
-
         if num < 0:
             num, sign = -num, -sign
         if den < 0:
             den, sign = -den, -sign
         g = Rational._gcd(num, den)
-
         self._num = sign *(num//g)
         self._den = den// num
 
@@ -83,9 +77,6 @@ y = Countable()
 print(Countable.get_count())
 
 
-
-
-
 class PersonValueError(TypeError):
     pass
 class PersonTypeError(TypeError):
@@ -94,7 +85,6 @@ class PersonTypeError(TypeError):
 class Person:
     #内部函数使用，只在类中生效
     _num = 0
-
     def __init__(self, name, sex, birthday, ident):
         if not (isinstance(name, str) and sex in ('男', '女') and isinstance(ident, str)):
             raise PersonValueError(name, sex, ident)
@@ -127,25 +117,58 @@ class Person:
     def __lt__(self, another):
         if not isinstance(another, Person):
             raise PersonTypeError(another)
-        return self._id > another._id
+        return self._birthday > another._birthday
 
     @classmethod
     def num(cls):
         return Person._num
 
     def __str__(self):
-        return ' '.join((self._id, self._name, self._sex, str(self._birthday)))
+        return '-'.join((self._id, self._name, self._sex, str(self._birthday)))
 
     def details(self):
         return ', '.join(('编号：'+self._id, '姓名：'+self._name,'性别：'+self._sex,'出生日期'+str(self._birthday)))
 
 
-p1 = Person('导导', '男', (1999, 2, 11), '9090200')
-p2 = Person('微微', '女', (1993, 12, 22), '9091200')
+p1 = Person('导导', '男', (1999, 2, 11), '9090233')
+p1.set_name('导导2号')
+p2 = Person('微微', '女', (1993, 12, 22), '9091202')
+p3 = Person('九九', '女', (1999, 7, 31), '9091201')
 
-print(p1, '\n', p1.details())
 
-p = [p1, p2]
+# print(p1, '\n', p1.details())
+
+p = [p1, p2, p3]
 p.sort()
 for pp in p:
     print(pp.details(), pp._num)
+
+
+
+class Student(Person):
+    _id_num = 0
+    @classmethod
+    def _id_gen(cls):
+        cls._id_num += 1
+        year = datetime.date.today().year
+        return '1{:04}{:05}'.format(year, cls._id_num)
+
+    def __init__(self, name, sex, birthday, department):
+        Person.__init__(self, name, sex, birthday, Student._id_gen())
+        self._department = department
+        self._enroll_date = datetime.date.today()
+        self._courses = {}
+    def set_course(self, course_name):
+        self._course[course_name] = None   
+    def set_score(self, course_name, score):
+        if course_name not in self._course:
+            raise PersonValueError('课程错误', course_name)
+        self._courses['course_name'] = score
+    def scores(self):
+        return [(cname, self._courses[cname]) for cname in self._courses]
+
+
+s1 = Student('小吴', '女', (1988, 2, 11), '数学系')
+s2 = Student('小周', '男', (1989, 12, 31), '外语系')
+
+print(s1.details(), s2.details())
