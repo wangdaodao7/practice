@@ -136,4 +136,4 @@ def work_three():
     plt.show()
 
 
-work_three()
+work_two()

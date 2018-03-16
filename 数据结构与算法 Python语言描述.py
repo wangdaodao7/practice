@@ -134,11 +134,14 @@ p1 = Person('导导', '男', (1999, 2, 11), '9090233')
 p1.set_name('导导2号')
 p2 = Person('微微', '女', (1993, 12, 22), '9091202')
 p3 = Person('九九', '女', (1999, 7, 31), '9091201')
+p4 = Person('三九', '男', (1399, 5, 1), '9092301')
+
+
 
 
 # print(p1, '\n', p1.details())
 
-p = [p1, p2, p3]
+p = [p1, p2, p3, p4]
 p.sort()
 for pp in p:
     print(pp.details(), pp._num)
