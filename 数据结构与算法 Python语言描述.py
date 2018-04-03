@@ -26,11 +26,11 @@ class Rational0:
         print(str(self.num) + '/' +str(self.den))
 
 
-r1 = Rational0(3)
-print(r1)
-r1.print()
-r2 = r1.plus(Rational0(7))
-r2.print()
+# r1 = Rational0(3)
+# print(r1)
+# r1.print()
+# r2 = r1.plus(Rational0(7))
+# r2.print()
 
 class Rational:
     #静态方法函数，在一个类里使用的普通函授，没有self，不参加实例
@@ -59,7 +59,7 @@ class Rational:
 
 
 x = Rational(9, 9)
-print(x._num, x._den)
+# print(x._num, x._den)
 
 
 #静态方法
@@ -74,7 +74,7 @@ class Countable:
 
 x = Countable()
 y = Countable()
-print(Countable.get_count())
+# print(Countable.get_count())
 
 
 class PersonValueError(TypeError):
@@ -136,15 +136,16 @@ p2 = Person('微微', '女', (1993, 12, 22), '9091202')
 p3 = Person('九九', '女', (1999, 7, 31), '9091201')
 p4 = Person('三九', '男', (1399, 5, 1), '9092301')
 
-
+print(p3.age())
+print(p2)
 
 
 # print(p1, '\n', p1.details())
 
-p = [p1, p2, p3, p4]
-p.sort()
-for pp in p:
-    print(pp.details(), pp._num)
+# p = [p1, p2, p3, p4]
+# p.sort()
+# for pp in p:
+#     print(pp.details(), pp._num)
 
 
 
@@ -169,9 +170,12 @@ class Student(Person):
         self._courses['course_name'] = score
     def scores(self):
         return [(cname, self._courses[cname]) for cname in self._courses]
+    def details(self):
+        return ', '.join(('编号：'+self._id, '姓名：'+self._name,'性别：'+self._sex,'出生日期'+str(self._birthday),'院系:'+self._department))
 
 
-s1 = Student('小吴', '女', (1988, 2, 11), '数学系')
-s2 = Student('小周', '男', (1989, 12, 31), '外语系')
 
-print(s1.details(), s2.details())
+s1 = Student('导导', '男', (1988, 6, 22), '化学系')
+s2 = Student('彤彤', '女', (1991, 11, 2), '管理系')
+
+print(s1.details(),'\n', s2.details())
