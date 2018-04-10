@@ -1,8 +1,8 @@
 import requests
 from urllib.parse import urlencode
 from requests.exceptions import ConnectionError
-
-
+from json.decoder import JSONDecodeError
+import json
 
 MONGO_URL = 'localhost'
 MONGO_DB = 'toutiao'
@@ -32,5 +32,19 @@ def get_page_index(offset, keyword):
         print('请求页面错误')
         return None
 
+def parse_page_index(text):
+    try:
+        data = json.loads(text)
+        if data and 'data' in data.keys():
+            for item in data.get('data'):
+                
+                yield item.get('article_url')
+    except ConnectionError:
+        print('出现错误。')
+        return None
+    
 
-print(get_page_index(10, KEWWORD))
+
+
+
+
