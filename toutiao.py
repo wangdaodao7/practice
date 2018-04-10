@@ -3,6 +3,8 @@ from urllib.parse import urlencode
 from requests.exceptions import ConnectionError
 from json.decoder import JSONDecodeError
 import json
+from bs4 import BeautifulSoup
+
 
 MONGO_URL = 'localhost'
 MONGO_DB = 'toutiao'
@@ -42,9 +44,55 @@ def parse_page_index(text):
     except ConnectionError:
         print('出现错误。')
         return None
+
+def get_page_detail(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.text
+        return None
+    except ConnectionError:
+        print('发生错误')
+        return None
+
+def parse_page_detail(text, url):
+    soup = BeautifulSoup(text, 'lxml')
+    reslut = soup.select('title')
+    title = reslut[0].get_text() if reslut else ''
+    images_pattern = re.compile('gallery: JSON.parse\("(.*)"\)', re.S)
+    reslut = re.search(images_pattern, text)
+    if reslut:
+        data = json.loads(reslut.group(1).replace('\\', ''))
+        
+
+
+
+
+
+
+
+
+
+
+def download_image(url):
+    # print('正在下载图片')
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            print('正在下载图片')
+            # save_image(response.content)
+        return None
+    except ConnectionError:
+        return None
+
+
+html = get_page_index(10, KEWWORD)
+
+for x in parse_page_index(html):
+    print(x)
+    if x: 
+        download_image(x)
+
+
+
     
-
-
-
-
-
