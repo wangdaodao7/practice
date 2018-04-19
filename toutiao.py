@@ -59,9 +59,7 @@ def save_image(content):
     file_path = '{0}/img/{1}.{2}'.format(os.getcwd(), md5(content).hexdigest(), 'jpg')
     if not os.path.exists(file_path):
         print('正在下载图片')
-
         print(file_path)
-
         with open(file_path, 'wb') as f:
             f.write(content)
     else:
@@ -69,7 +67,6 @@ def save_image(content):
 
 
 def download_image(url):
-    # print('正在下载图片')
     try:
         response = requests.get(url)
         if response.status_code == 200:
@@ -94,7 +91,6 @@ def parse_page_detail(text, url):
     reslut = soup.select('title')
     title = reslut[0].get_text() if reslut else ''
     images_pattern = re.compile('gallery: JSON.parse\("(.*)"\)', re.S)
-
     reslut = re.search(images_pattern, text)
     if reslut:
         data = json.loads(reslut.group(1).replace('\\', ''))
@@ -124,7 +120,6 @@ def main(offset):
             reslut = parse_page_detail(html, url)
             if reslut:
                 save_to_mango(reslut)
-
 
 
 
