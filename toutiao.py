@@ -48,8 +48,7 @@ def parse_page_index(text):
     try:
         data = json.loads(text)
         if data and 'data' in data.keys():
-            for item in data.get('data'):
-                
+            for item in data.get('data'):               
                 yield item.get('article_url')
     except ConnectionError:
         print('出现错误。')
@@ -120,8 +119,6 @@ def main(offset):
             reslut = parse_page_detail(html, url)
             if reslut:
                 save_to_mango(reslut)
-
-
 
 if __name__ == '__main__':
     pool = Pool()
