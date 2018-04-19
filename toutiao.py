@@ -119,15 +119,15 @@ def main(offset):
     text = get_page_index(offset, KEWWORD)
     urls = parse_page_index(text)
     for url in urls:
-        # print(url)
         if url and 'group' in url:
-            # print(url)
             html = get_page_detail(url) 
-            # print(html)
             reslut = parse_page_detail(html, url)
-            # print(reslut)
             if reslut:
                 save_to_mango(reslut)
+
+
+
+
 if __name__ == '__main__':
     pool = Pool()
     groups = ([x * 20 for x in range(GROUP_START, GROUP_END+1)])
