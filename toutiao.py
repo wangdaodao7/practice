@@ -13,10 +13,12 @@ from requests.exceptions import ConnectionError
 
 MONGO_URL = 'localhost'
 MONGO_DB = 'toutiao'
-MONGO_TABLE = 'toutiao'
+MONGO_TABLE = '清凉'
 GROUP_START = 1
-GROUP_END = 3
-KEWWORD = '街拍'
+GROUP_END = 6
+KEWWORD = '清凉'
+
+
 
 client = pymongo.MongoClient(MONGO_URL, port=27017)
 db = client[MONGO_DB]
