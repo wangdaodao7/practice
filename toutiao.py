@@ -19,7 +19,6 @@ GROUP_END = 6
 KEWWORD = '清凉'
 
 
-
 client = pymongo.MongoClient(MONGO_URL, port=27017)
 db = client[MONGO_DB]
 
@@ -136,3 +135,5 @@ if __name__ == '__main__':
     pool.map(main, groups)
     pool.close()
     pool.join()
+
+    
