@@ -13,10 +13,10 @@ from requests.exceptions import ConnectionError
 
 MONGO_URL = 'localhost'
 MONGO_DB = 'toutiao'
-MONGO_TABLE = '清凉'
+MONGO_TABLE = '长腿'
 GROUP_START = 1
 GROUP_END = 6
-KEWWORD = '清凉'
+KEWWORD = '长腿'
 
 
 
@@ -132,7 +132,6 @@ def main(offset):
 if __name__ == '__main__':
     pool = Pool()
     groups = ([x * 20 for x in range(GROUP_START, GROUP_END + 1)])
-    print(groups)
     pool.map(main, groups)
     pool.close()
     pool.join()
