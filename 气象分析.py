@@ -112,6 +112,8 @@ def work_two():
     plt.show()
 
 
+
+
 def work_three():
     dist1 = [[x] for x in dist[0: 5]]
     dist2 = [[x] for x in dist[5: 10]]
@@ -136,4 +138,13 @@ def work_three():
     plt.show()
 
 
-work_three()
+work_two()
+
+
+
+
+
+
+
+
+

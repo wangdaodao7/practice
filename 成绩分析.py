@@ -44,7 +44,6 @@ def add_labels(rects):
         plt.text(rect.get_x() + rect.get_width() / 2, height, height, ha='center', va='bottom') 
         rect.set_edgecolor('white')
     
-
 add_labels(rects1) 
 add_labels(rects2) 
 plt.show()
