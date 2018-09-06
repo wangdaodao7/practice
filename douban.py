@@ -19,8 +19,12 @@ def get_one_page(url):
 def main():
     url = 'http://maoyan.com/board/4?'
     html = get_one_page(url)
-
+    print(html)
 
 
 if __name__ == '__main__':
     main()
+
+
+
+    def
