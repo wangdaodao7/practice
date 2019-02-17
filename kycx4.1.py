@@ -38,7 +38,6 @@ def get_info():
     print(response.status_code)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'lxml')
-        print(soup)
         if soup.select('.zx-no-answer'):
             txt = soup.select('.zx-no-answer')[0].text
             msg = '---结果未出---\n{}'.format(txt)
