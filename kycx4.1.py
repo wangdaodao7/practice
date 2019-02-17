@@ -35,13 +35,9 @@ data = {
 
 def get_info():
     response = requests.post(url, data=data, headers=headers)
-    print(response.status_code)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'lxml')
-        if soup.select('.zx-no-answer'):
-            txt = soup.select('.zx-no-answer')[0].text
-            msg = '---结果未出---\n{}'.format(txt)
-        elif soup.select('.yzwb-alert-msg'):
+        if soup.select('.zx-no-answer') or soup.select('.yzwb-alert-msg'):
             txt = soup.select('.zx-no-answer')[0].text
             msg = '---结果未出---\n{}'.format(txt)
         else:
@@ -60,6 +56,7 @@ def send_info():
         print(reslut)
         if now_minute == 0:
             itchat.send(reslut, username=username)
+            print('发送到微信了！')
         if '考上' in reslut:
             itchat.send('可能考研结果出来了，等确认中', toUserName=username)
             itchat.send('可能考研结果出来了，等确认中', toUserName=username)
