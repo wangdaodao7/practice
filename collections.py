@@ -9,6 +9,8 @@ j = Counter(ss)
 print(j.most_common(5)[2:4])
 
 
+
+
 for infile in glob.glob('*.png'):
     print(infile)
 
