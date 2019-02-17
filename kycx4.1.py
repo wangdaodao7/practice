@@ -8,7 +8,7 @@ import itchat
 
 url = 'https://yz.chsi.com.cn/apply/cjcx/cjcx.do'
 
-headers = {
+ headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -32,33 +32,37 @@ data = {
     'checkcode': ''
 }
 
-def chaxun():
-    
+def get_info():    
     response = requests.post(url, data=data, headers=headers)
-    soup = BeautifulSoup(response.text, 'lxml')
-    if soup.select('.zx-no-answer'):
-        txt = soup.select('.zx-no-answer')[0].text
-        msg = '---结果未出---\n{}'.format(txt)
-    else:
-        msg = '我考上了！'
+    print(response.status_code)
+    if response.status_code ==200:
+        soup = BeautifulSoup(response.text, 'lxml')
+        print(soup)
+        if soup.select('.zx-no-answer'):
+            txt = soup.select('.zx-no-answer')[0].text
+            msg = '---结果未出---\n{}'.format(txt)
+        elif soup.select('.yzwb-alert-msg'):
+            txt = soup.select('.zx-no-answer')[0].text
+            msg = '---结果未出---\n{}'.format(txt)
+        else:
+            msg = '我考上了！'
+        return msg
 
-    return msg
-
-def fasong():
+def send_info():
     now_hour = datetime.datetime.now().hour
     now_minute = datetime.datetime.now().minute
     now_second = datetime.datetime.now().second
     now_time = '{}:{}:{}'.format(now_hour, now_minute, now_second)
 
     if now_minute == 0 and now_second == 0:
-        reslut = '{1}:\n{0}'.format(chaxun(), now_time)
+        reslut = '{1}:\n{0}'.format(get_info(), now_time)
         itchat.send(reslut, toUserName=username)
         print('已发送到微信：{}'.format(reslut))
     elif now_second == 0:
-        reslut = '{1}:\n{0}'.format(chaxun(), now_time)
+        reslut = '{1}:\n{0}'.format(get_info(), now_time)
         print(reslut)
         if '考上' in reslut:
-            itchat.send('我考上了'*20, toUserName=username)
+            itchat.send('可能考研结果出来了，等确认中', toUserName=username)
     else:
         print(now_time)
 
@@ -69,7 +73,7 @@ username = users[0]['UserName']
 
 while True: 
     try:  
-        fasong()
+        send_info()
     except:
         pass
     time.sleep(1)
