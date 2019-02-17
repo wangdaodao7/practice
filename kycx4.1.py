@@ -8,7 +8,7 @@ import itchat
 
 url = 'https://yz.chsi.com.cn/apply/cjcx/cjcx.do'
 
- headers = {
+headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -32,10 +32,11 @@ data = {
     'checkcode': ''
 }
 
-def get_info():    
+
+def get_info():
     response = requests.post(url, data=data, headers=headers)
     print(response.status_code)
-    if response.status_code ==200:
+    if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'lxml')
         print(soup)
         if soup.select('.zx-no-answer'):
@@ -48,31 +49,33 @@ def get_info():
             msg = '我考上了！'
         return msg
 
+
 def send_info():
     now_hour = datetime.datetime.now().hour
     now_minute = datetime.datetime.now().minute
     now_second = datetime.datetime.now().second
     now_time = '{}:{}:{}'.format(now_hour, now_minute, now_second)
 
-    if now_minute == 0 and now_second == 0:
-        reslut = '{1}:\n{0}'.format(get_info(), now_time)
-        itchat.send(reslut, toUserName=username)
-        print('已发送到微信：{}'.format(reslut))
-    elif now_second == 0:
+    if now_second == 0:
         reslut = '{1}:\n{0}'.format(get_info(), now_time)
         print(reslut)
+        if now_minute == 0:
+            itchat.send(reslut, username=username)
         if '考上' in reslut:
             itchat.send('可能考研结果出来了，等确认中', toUserName=username)
+            itchat.send('可能考研结果出来了，等确认中', toUserName=username)
+
     else:
         print(now_time)
+
 
 itchat.auto_login(hotReload=True)
 users = itchat.search_friends('孙妞')
 print('登陆成功！！！')
 username = users[0]['UserName']
 
-while True: 
-    try:  
+while True:
+    try:
         send_info()
     except:
         pass
