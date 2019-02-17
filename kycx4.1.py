@@ -55,12 +55,11 @@ def send_info():
         reslut = '{1}:\n{0}'.format(get_info(), now_time)
         print(reslut)
         if now_minute == 0:
-            itchat.send(reslut, username=username)
+            itchat.send(reslut, toUserName=username)
             print('发送到微信了！')
         if '考上' in reslut:
             itchat.send('可能考研结果出来了，等确认中', toUserName=username)
             itchat.send('可能考研结果出来了，等确认中', toUserName=username)
-
     else:
         print(now_time)
 
