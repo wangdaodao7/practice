@@ -3,9 +3,13 @@ import re
 
 from requests.exceptions import RequestException
 
-headers= {
-    'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36 QQBrowser/4.3.4986.400'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/\
+                    537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36\
+                    QQBrowser/4.3.4986.400'
 }
+
+
 def get_one_page(url):
     try:
         response = requests.get(url, headers=headers)
@@ -24,6 +28,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-

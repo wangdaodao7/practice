@@ -41,7 +41,9 @@ def get_info():
             txt = soup.select('.zx-no-answer')[0].text
             msg = '---结果未出---\n{}'.format(txt)
         else:
-            msg = '我考上了！'
+            txt = soup.select('.cjxx-info-content')
+            msg = [t.get_text().strip() for t in txt[4: 9]]
+            print(msg)
         return msg
 
 
@@ -64,14 +66,16 @@ def send_info():
         print(now_time)
 
 
-itchat.auto_login(hotReload=True)
-users = itchat.search_friends('孙妞')
-print('登陆成功！！！')
-username = users[0]['UserName']
+# send_info()
+# itchat.auto_login(hotReload=True)
+# users = itchat.search_friends('孙妞')
+# print('登陆成功！！！')
+# username = users[0]['UserName']
 
-while True:
-    try:
-        send_info()
-    except:
-        pass
-    time.sleep(1)
+# while True:
+#     try:
+#         send_info()
+#     except:
+#         pass
+#     time.sleep(1)
+get_info()
